@@ -1,0 +1,29 @@
+/**
+ * TODO
+ * @author:     Michael Klier <chi@chimeric.de>
+ * @homepage:   http://www.chimeric.de
+ */
+
+div.dokuwiki ul.plugin_lastfm_topalbums,
+div.dokuwiki ul.plugin_lastfm_toptracks,
+div.dokuwiki ul.plugin_lastfm_topartists,
+div.dokuwiki ul.plugin_lastfm_recenttracks {
+    list-style-type:none;
+    list-style-image:none;
+    margin-left:0.2em;
+}
+
+div.dokuwiki span.plugin_lastfm_rank {
+    font-weight:bold;
+}
+
+div.dokuwiki div.plugin_lastfm_type {
+    color:#d20039;
+    font-weight:bold;
+}
+
+div.dokuwiki div.plugin_lastfm_playcount {
+}
+
+div.dokuwiki div.plugin_lastfm_date {
+}
