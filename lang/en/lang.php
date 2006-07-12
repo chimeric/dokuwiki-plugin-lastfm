@@ -15,6 +15,7 @@ $lang['recenttracks']       = 'Recently played Tracks';
 $lang['weeklyartistchart']  = 'Weekly Artist Charts';
 $lang['weeklyalbumchart']   = 'Weekly Album Charts';
 $lang['weeklytrackchart']   = 'Weekly Track Charts';
+$lang['tags']               = 'Tags';
 
 $lang['nothing']            = 'Nothing found!';
 
