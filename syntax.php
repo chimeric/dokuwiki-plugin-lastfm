@@ -220,7 +220,6 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             $xml_url = $url.$param.'.xml';
             $xml_raw = $http->get($xml_url);
             if($http->status != 200) {
-                print "hello";
                 $lastfm_data[$param]['error']['status']     = $http->status;
                 $lastfm_data[$param]['error']['resp_body']  = $http->resp_body;
             } else {
