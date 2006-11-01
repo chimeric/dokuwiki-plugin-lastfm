@@ -18,6 +18,8 @@ require_once(DOKU_PLUGIN.'syntax.php');
  */
 class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
 
+    // UTC Offset
+    var $_utc_offset;
 
     /**
      * General Info
@@ -26,7 +28,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         return array(
             'author' => 'Michael Klier (chi)',
             'email'  => 'chi@chimeric.de',
-            'date'   => '2006-10-12',
+            'date'   => '2006-11-01',
             'name'   => 'LastFm',
             'desc'   => 'Displays lastfm statistics for a given user',
             'url'    => 'http://www.chimeric.de/dokuwiki/plugins/lastfm'
@@ -90,6 +92,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         global $ID;
 
         if($mode == 'xhtml'){
+            $this->_utc_offset = $this->getConf('utc_offset');
             $renderer->info['cache'] = false;
             $renderer->doc .= '<div id="plugin_lastfm">' . DW_LF;
             $renderer->doc .= $this->_render_data($data);
@@ -108,6 +111,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         require_once(DOKU_INC.'inc/html.php');
         $ret = '';
         $lastfm_data = $this->_fetch_data($data);
+
 
         foreach($lastfm_data as $key => $val) {
             $ret .= '<div class="plugin_lastfm_'.$key.'">' . DW_LF;
@@ -192,7 +196,12 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         }
 
         if(array_key_exists('date',$item)) {
-            $ret .= '  <span class="plugin_lastfm_date">('.$item['date'] . ')</span>' . DW_LF;
+            list($day,$month,$year,$time) = explode(' ',$item['date']);
+            list($hour,$min) = explode(':',$time);
+            // add UTC Offset
+            $hour = $hour + $this->_utc_offset;
+            $time = $hour . ':' . $min;
+            $ret .= '  <span class="plugin_lastfm_date">(' . $day . ' ' . $month . ' ' . $year . ' ' . $time . ')</span>' . DW_LF;
         }
 
         $ret .= '</span>' . DW_LF;

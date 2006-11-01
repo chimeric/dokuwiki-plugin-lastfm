@@ -18,5 +18,3 @@ $lang['weeklytrackchart']   = 'Weekly Track Charts';
 $lang['tags']               = 'Tags';
 
 $lang['nothing']            = 'Nothing found!';
-
-?>
