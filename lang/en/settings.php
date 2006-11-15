@@ -7,3 +7,4 @@
  */
 
 $lang['utc_offset'] = 'UTC Offset';
+$lang['dformat']    = 'Date format in php <a href="http://php.net/date" class="interwiki iw_phpfn" title="php date">date</a> format';
