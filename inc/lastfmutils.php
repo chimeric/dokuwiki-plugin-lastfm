@@ -183,9 +183,9 @@ function lastfm_get_xml($user,$chart) {
 function lastfm_cvdate($date,$dformat,$utc_offset) {
     list($day,$month,$year,$time) = explode(' ',$date);
     list($hour,$min) = explode(':',$time);
-    $year = substr($year,0,-1); // remove trailing comma
-    $hour = $hour + $utc_offset;
-    return date($dformat,mktime($hour,$min,0,$month,$day,$year));
+    $year  = substr($year,0,-1); // remove trailing comma
+    $hour  = $hour + $utc_offset;
+    return date($dformat,strtotime($day." ".$month." ".$year. " ".$hour.":".$min));
 }
 
 /**
