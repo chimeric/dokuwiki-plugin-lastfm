@@ -19,7 +19,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset) {
 
     $data = array();
     $xml  = lastfm_get_xml($user,$chart);
-    $data = @array_pop(lastfm_xml2array($xml)); 
+    $data = ($chart != 'profile') ? @array_pop(lastfm_xml2array($xml)) : lastfm_xml2array($xml); 
 
     // do we have any data?
     if(!is_array($data)) {
@@ -153,6 +153,13 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset) {
                 print '  <td class="plugin_lastfm_playcount">' . $rcd['playcount'] . '</td>' . DW_LF;
                 print '</tr>' . DW_LF;
             }
+            break;
+
+        case 'profile':
+            //print_r($data);
+            print '<a href="' . $data['url'] . '" title="' . $user . '">' . DW_LF;
+            print '  <img src="' . $data['avatar'] . '" alt="' . $user . '" />' . DW_LF;
+            print '</a>' . DW_LF;
             break;
     }
 

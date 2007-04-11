@@ -16,5 +16,6 @@ $lang['weeklyartistchart']  = 'Weekly Artist Charts';
 $lang['weeklyalbumchart']   = 'Weekly Album Charts';
 $lang['weeklytrackchart']   = 'Weekly Track Charts';
 $lang['tags']               = 'Tags';
+$lang['profile']            = 'Profile';
 
 $lang['nothing']            = 'Nothing found!';
