@@ -18,7 +18,7 @@ function lastfm_ajax(obj){
     ajax_qsearch.sack.AjaxFailedAlert = '';
     ajax_qsearch.sack.encodeURIString = false;
 
-    // show loadbar
+    // show loader
     lastfm_loader(obj);
  
     // define callback
@@ -30,7 +30,7 @@ function lastfm_ajax(obj){
         obj.style.visibility = 'visible';
     };
 
-    ajax.runAJAX('user='+plugin_lastfm_user+'&chart='+obj.id+'&limit='+plugin_lastfm_limit+'&dformat='+plugin_lastfm_dformat+'&utc_offset='+plugin_lastfm_utc_offset);
+    ajax.runAJAX('user='+plugin_lastfm_user+'&chart='+obj.id+'&limit='+plugin_lastfm_limit+'&dformat='+plugin_lastfm_dformat+'&utc_offset='+plugin_lastfm_utc_offset+'&cols='+plugin_lastfm_cols);
 }
 
 /**

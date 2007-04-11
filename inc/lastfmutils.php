@@ -14,7 +14,7 @@ require_once(DOKU_INC.'inc/html.php');
  *
  * @author Michael Klier <chi@chimeric.de>
  */
-function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset) {
+function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols) {
     global $lang;
 
     $data = array();
@@ -27,6 +27,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset) {
         return;
     };
 
+    // apply limit
     $data = array_slice($data,0,$limit);
     
     print '<table class="plugin_lastfm_chart plugin_lastfm_' . $chart . '">' . DW_LF;
@@ -84,27 +85,47 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset) {
             break;
 
         case 'friends':
-            print '<tr>' . DW_LF;
-            foreach($data as $rcd) {
+            $num = count($data);
+            $col = 1;
+
+            for($i=0;$i<$num;$i++) {
+                if($col == 1) print '<tr>' . DW_LF;
+
                 print '  <td class="plugin_lastfm_friend">' . DW_LF;
-                print '    <a href="' . $rcd['url'] . '" title="' . $rcd['attributes']['username'] . '">' . DW_LF;
-                print '     <img src="' . $rcd['image'] . '" alt="' . $rcd['attributes']['username'] . '" width="40px" height="40px" />' . DW_LF;
+                print '    <a href="' . $data[$i]['url'] . '" title="' . $data[$i]['attributes']['username'] . '">' . DW_LF;
+                print '     <img src="' . $data[$i]['image'] . '" alt="' . $data[$i]['attributes']['username'] . '" width="40px" height="40px" />' . DW_LF;
                 print '    </a>' . DW_LF;
                 print '  </td>' . DW_LF;
+
+                if($col == $cols) {
+                    print '</tr>' . DW_LF;
+                    $col = 1;
+                } else {
+                    $col++;
+                }
             }
-            print '</tr>' . DW_LF;
             break;
 
         case 'neighbours':
-            print '<tr>' . DW_LF;
-            foreach($data as $rcd) {
+            $num = count($data);
+            $col = 1;
+
+            for($i=0;$i<$num;$i++) {
+                if($col == 1) print '<tr>' . DW_LF;
+
                 print '  <td class="plugin_lastfm_friend">' . DW_LF;
-                print '    <a href="' . $rcd['url'] . '" title="' . $rcd['attributes']['username'] . '">' . DW_LF;
-                print '     <img src="' . $rcd['image'] . '" alt="' . $rcd['attributes']['username'] . ' ' . $rcd['match'] . '%" width="40px" height="40px" />' . DW_LF;
+                print '    <a href="' . $data[$i]['url'] . '" title="' . $data[$i]['attributes']['username'] . '">' . DW_LF;
+                print '     <img src="' . $data[$i]['image'] . '" alt="' . $data[$i]['attributes']['username'] . ' ' . $data[$i]['match'] . '%" width="40px" height="40px" />' . DW_LF;
                 print '    </a>' . DW_LF;
                 print '  </td>' . DW_LF;
+
+                if($col == $cols) {
+                    print '</tr>' . DW_LF;
+                    $col = 1;
+                } else {
+                    $col++;
+                }
             }
-            print '</tr>' . DW_LF;
             break;
 
         case 'recenttracks':

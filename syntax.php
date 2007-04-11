@@ -81,7 +81,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
 
         list($user,$params) = explode('?',$match);
 
-        $data['user']   = $user;
+        $data['user'] = $user;
 
         // parse params
         if(preg_match('/\btopartists\b/', $params))   $data['params'][] = 'topartists';
@@ -96,10 +96,16 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         if(preg_match('/\btrackchart\b/', $params))   $data['params'][] = 'weeklytrackchart';
         if(preg_match('/\bprofile\b/', $params))      $data['params'][] = 'profile';
 
-        if(preg_match('/\bL=([0-9]{1,2})\b/',$params,$match)) {
+        if(preg_match('/\bL=([0-9]{1,2})\b/', $params, $match)) {
             $data['limit'] = $match[1];
         } else {
             $data['limit'] = 10;
+        }
+
+        if(preg_match('/\bC=([0-9]{1})\b/', $params, $match)) {
+            $data['cols'] = $match[1];
+        } else {
+            $data['cols'] = 5;
         }
 
         return ($data);
@@ -129,6 +135,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= 'var plugin_lastfm_limit = "' . $data['limit'] . '";' . DW_LF;
             $renderer->doc .= 'var plugin_lastfm_utc_offset = "' . $this->getConf('utc_offset') . '";' . DW_LF;
             $renderer->doc .= 'var plugin_lastfm_dformat = "' . $this->getConf('dformat') . '";' . DW_LF;
+            $renderer->doc .= 'var plugin_lastfm_cols = "'. $data['cols'] . '";' . DW_LF;
             $renderer->doc .= '</script>' . DW_LF;
 
             return true;
