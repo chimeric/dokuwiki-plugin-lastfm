@@ -47,7 +47,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         return array(
             'author' => 'Michael Klier (chi)',
             'email'  => 'chi@chimeric.de',
-            'date'   => '2007-04-11',
+            'date'   => '2007-04-12',
             'name'   => 'LastFm',
             'desc'   => 'Displays lastfm statistics for a given user',
             'url'    => 'http://www.chimeric.de/projects/dokuwiki/plugin/lastfm'
@@ -75,37 +75,31 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
      */
     function handle($match, $state, $pos, &$handler){
 
-        $data = array();
+        $data   = array();
+        $charts = array('topartists', 'topalbums', 'toptracks', 'tags', 'friends',
+                        'neighbours', 'recenttracks', 'artistchart', 'albumchart',
+                        'trackchart', 'profile');
 
         $match = substr($match,9,-2);
 
         list($user,$params) = explode('?',$match);
 
         $data['user'] = $user;
+        $params = explode(' ', $params);
 
-        // parse params
-        if(preg_match('/\btopartists\b/', $params))   $data['params'][] = 'topartists';
-        if(preg_match('/\btopalbums\b/', $params))    $data['params'][] = 'topalbums';
-        if(preg_match('/\btoptracks\b/', $params))    $data['params'][] = 'toptracks';
-        if(preg_match('/\btags\b/', $params))         $data['params'][] = 'tags';
-        if(preg_match('/\bfriends\b/', $params))      $data['params'][] = 'friends';
-        if(preg_match('/\bneighbours\b/', $params))   $data['params'][] = 'neighbours';
-        if(preg_match('/\brecenttracks\b/', $params)) $data['params'][] = 'recenttracks';
-        if(preg_match('/\bartistchart\b/', $params))  $data['params'][] = 'weeklyartistchart';
-        if(preg_match('/\balbumchart\b/', $params))   $data['params'][] = 'weeklyalbumchart';
-        if(preg_match('/\btrackchart\b/', $params))   $data['params'][] = 'weeklytrackchart';
-        if(preg_match('/\bprofile\b/', $params))      $data['params'][] = 'profile';
-
-        if(preg_match('/\bL=([0-9]{1,2})\b/', $params, $match)) {
-            $data['limit'] = $match[1];
-        } else {
-            $data['limit'] = 10;
-        }
-
-        if(preg_match('/\bC=([0-9]{1})\b/', $params, $match)) {
-            $data['cols'] = $match[1];
-        } else {
-            $data['cols'] = 5;
+        $data['charts'] = array();
+        
+        foreach($params as $param) {
+            if(in_array($param, $charts)) {
+                if($param == 'artistchart' || $param == 'albumchart' || $param == 'trackchart') {
+                    array_push($data['charts'], 'weekly'.$param);
+                } else {
+                    array_push($data['charts'], $param);
+                }
+            } else {
+                if(@preg_match('/\bL=([0-9]{1,2})\b/', $param, $match)) $data['limit'] = $match[1];
+                elseif(@preg_match('/\bC=([0-9]{1})\b/', $param, $match)) $data['cols'] = $match[1];
+            }
         }
 
         return ($data);
@@ -123,9 +117,9 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             $renderer->info['cache'] = false;
 
             $renderer->doc .= '<div id="plugin_lastfm">' . DW_LF;
-            foreach($data['params'] as $param) {
-                $renderer->doc .= '  <span class="plugin_lastfm_charttype">last.fm ' . $this->getLang($param) . '</span>' . DW_LF;
-                $renderer->doc .= '  <div class="plugin_lastfm_chart" id="plugin_lastfm_' . $param . '"></div>' . DW_LF;
+            foreach($data['charts'] as $chart) {
+                $renderer->doc .= '  <span class="plugin_lastfm_charttype">last.fm ' . $this->getLang($chart) . '</span>' . DW_LF;
+                $renderer->doc .= '  <div class="plugin_lastfm_chart" id="plugin_lastfm_' . $chart . '"></div>' . DW_LF;
             }
             $renderer->doc .= '</div>' . DW_LF;
 
