@@ -88,6 +88,8 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         $params = explode(' ', $params);
 
         $data['charts'] = array();
+        $data['limit']  = 10;
+        $data['cols']   = 5;
         
         foreach($params as $param) {
             if(in_array($param, $charts)) {
