@@ -57,7 +57,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly) {
                         print '  <td class="plugin_lastfm_rank">' . $rcd['rank'] . '.</td>' . DW_LF;
                         print '  <td>' . DW_LF;
                         print '    <a href="' . $rcd['url'] . '" title="' . $rcd['artist'] . ' - ' . $rcd['name'] . '">' . DW_LF;
-                        print '      <img src="' . $rcd['image']['small'] . '" height="40px" width="40px" alt="' . $rcd['name'] . '" />' . DW_LF;
+                        print '      <img src="' . $rcd['image']['small'] . '" height="45px" width="45px" alt="' . $rcd['name'] . '" />' . DW_LF;
                         print '    </a>' . DW_LF;
                         print '  </td>' . DW_LF;
                         print '  <td class="plugin_lastfm_artist"><a href="' . $rcd['url'] .'" title="' . $rcd['artist'] . '">' . $rcd['artist'] . ' [' . $rcd['name'] . ']</a></td>' . DW_LF;
@@ -73,7 +73,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly) {
 
                     print '  <td>' . DW_LF;
                     print '    <a href="' . $data[$i]['url'] . '" title="' . $data[$i]['artist'] . ' - ' . $data[$i]['name'] . '">' . DW_LF;
-                    print '      <img src="' . $data[$i]['image']['small'] . '" height="40px" width="40px" alt="' . $data[$i]['name'] . '" />' . DW_LF;
+                    print '      <img src="' . $data[$i]['image']['small'] . '" height="45px" width="45px" alt="' . $data[$i]['name'] . '" />' . DW_LF;
                     print '    </a>' . DW_LF;
                     print '  </td>' . DW_LF;
 
@@ -115,7 +115,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly) {
 
                 print '  <td class="plugin_lastfm_friend">' . DW_LF;
                 print '    <a href="' . $data[$i]['url'] . '" title="' . $data[$i]['attributes']['username'] . '">' . DW_LF;
-                print '     <img src="' . $data[$i]['image'] . '" alt="' . $data[$i]['attributes']['username'] . '" width="40px" height="40px" />' . DW_LF;
+                print '     <img src="' . $data[$i]['image'] . '" alt="' . $data[$i]['attributes']['username'] . '" width="45px" height="45px" />' . DW_LF;
                 print '    </a>' . DW_LF;
                 print '  </td>' . DW_LF;
 
@@ -137,7 +137,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly) {
 
                 print '  <td class="plugin_lastfm_friend">' . DW_LF;
                 print '    <a href="' . $data[$i]['url'] . '" title="' . $data[$i]['attributes']['username'] . '">' . DW_LF;
-                print '     <img src="' . $data[$i]['image'] . '" alt="' . $data[$i]['attributes']['username'] . ' ' . $data[$i]['match'] . '%" width="40px" height="40px" />' . DW_LF;
+                print '     <img src="' . $data[$i]['image'] . '" alt="' . $data[$i]['attributes']['username'] . ' ' . $data[$i]['match'] . '%" width="45px" height="45px" />' . DW_LF;
                 print '    </a>' . DW_LF;
                 print '  </td>' . DW_LF;
 
