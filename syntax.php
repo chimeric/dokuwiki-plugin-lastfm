@@ -18,6 +18,9 @@
  *                 - artistchart
  *                 - albumchart
  *                 - trackchart 
+ *                 - L=n (limit number of records)
+ *                 - C=n (limit numer of columns)
+ *                 - IMGONLY (show only images in topalbums)
  * 
  * @license GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author  Michael Klier <chi@chimeric.de>
@@ -47,7 +50,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         return array(
             'author' => 'Michael Klier (chi)',
             'email'  => 'chi@chimeric.de',
-            'date'   => '2007-04-12',
+            'date'   => '2007-05-03',
             'name'   => 'LastFm',
             'desc'   => 'Displays lastfm statistics for a given user',
             'url'    => 'http://www.chimeric.de/projects/dokuwiki/plugin/lastfm'
@@ -87,9 +90,10 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         $data['user'] = $user;
         $params = explode(' ', $params);
 
-        $data['charts'] = array();
-        $data['limit']  = 10;
-        $data['cols']   = 5;
+        $data['charts']  = array();
+        $data['limit']   = 10;
+        $data['cols']    = 5;
+        $data['imgonly'] = 0;
         
         foreach($params as $param) {
             if(in_array($param, $charts)) {
@@ -101,6 +105,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             } else {
                 if(@preg_match('/\bL=([0-9]{1,2})\b/', $param, $match)) $data['limit'] = $match[1];
                 elseif(@preg_match('/\bC=([0-9]{1})\b/', $param, $match)) $data['cols'] = $match[1];
+                elseif(@preg_match('/\bIMGONLY\b/', $param, $match)) $data['imgonly'] = 1;
             }
         }
 
@@ -132,6 +137,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= 'var plugin_lastfm_utc_offset = "' . $this->getConf('utc_offset') . '";' . DW_LF;
             $renderer->doc .= 'var plugin_lastfm_dformat = "' . $this->getConf('dformat') . '";' . DW_LF;
             $renderer->doc .= 'var plugin_lastfm_cols = "'. $data['cols'] . '";' . DW_LF;
+            $renderer->doc .= 'var plugin_lastfm_imgonly = "' . $data['imgonly'] . '";' . DW_LF;
             $renderer->doc .= '</script>' . DW_LF;
 
             return true;

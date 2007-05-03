@@ -30,7 +30,7 @@ function lastfm_ajax(obj){
         obj.style.visibility = 'visible';
     };
 
-    ajax.runAJAX('user='+plugin_lastfm_user+'&chart='+obj.id+'&limit='+plugin_lastfm_limit+'&dformat='+plugin_lastfm_dformat+'&utc_offset='+plugin_lastfm_utc_offset+'&cols='+plugin_lastfm_cols);
+    ajax.runAJAX('user='+plugin_lastfm_user+'&chart='+obj.id+'&limit='+plugin_lastfm_limit+'&dformat='+plugin_lastfm_dformat+'&utc_offset='+plugin_lastfm_utc_offset+'&cols='+plugin_lastfm_cols+'&imgonly='+plugin_lastfm_imgonly);
 }
 
 /**

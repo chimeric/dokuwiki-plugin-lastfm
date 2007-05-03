@@ -25,10 +25,11 @@ $limit = $_REQUEST['limit'];
 $dformat = $_REQUEST['dformat'];
 $utc_offset = $_REQUEST['utc_offset'];
 $cols = $_REQUEST['cols'];
+$imgonly = $_REQUEST['imgonly'];
 
 // maybe the whole thing could be done in a cleaner fashion
 $chart = preg_replace("/plugin_lastfm_/",'',$chart);
 
 // get chart
-lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols);
+lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly);
 ?>
