@@ -28,7 +28,7 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly) {
     };
 
     // apply limit
-    $data = array_slice($data,0,$limit);
+    if($chart != 'profile') $data = array_slice($data,0,$limit);
     
     print '<table class="plugin_lastfm_chart plugin_lastfm_' . $chart . '">' . DW_LF;
 
@@ -199,7 +199,6 @@ function lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly) {
             break;
 
         case 'profile':
-            //print_r($data);
             print '<a href="' . $data['url'] . '" title="' . $user . '">' . DW_LF;
             print '  <img src="' . $data['avatar'] . '" alt="' . $user . '" />' . DW_LF;
             print '</a>' . DW_LF;

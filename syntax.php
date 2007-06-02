@@ -50,7 +50,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
         return array(
             'author' => 'Michael Klier (chi)',
             'email'  => 'chi@chimeric.de',
-            'date'   => '2007-05-03',
+            'date'   => '2007-06-02',
             'name'   => 'LastFm',
             'desc'   => 'Displays lastfm statistics for a given user',
             'url'    => 'http://www.chimeric.de/projects/dokuwiki/plugin/lastfm'
