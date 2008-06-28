@@ -32,4 +32,6 @@ $chart = preg_replace("/plugin_lastfm_/",'',$chart);
 
 // get chart
 lastfm_xhtml($user,$chart,$limit,$dformat,$utc_offset,$cols,$imgonly);
+
+// vim:ts=4:sw=4:et:enc=utf-8:
 ?>
