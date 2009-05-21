@@ -52,11 +52,8 @@ class action_plugin_lastfm extends DokuWiki_Action_Plugin{
         $dformat    = $this->getConf('dformat');
         $utc_offset = $this->getconf('utc_offset');
 
-        dbglog($user);
-
         // maybe the whole thing could be done in a cleaner fashion
         $chart = preg_replace("/plugin_lastfm_/",'',$chart);
-        dbglog($chart);
 
         // get chart
         lastfm_xhtml($user, $chart, $limit, $dformat, $utc_offset, $cols, $imgonly);
