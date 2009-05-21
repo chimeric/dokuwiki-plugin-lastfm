@@ -41,3 +41,7 @@ div.dokuwiki div.plugin_lastfm_playcount {
   background: #ccc url(images/chart_end.gif) no-repeat right;
   padding-left: 0.3em;
 }
+
+div.dokuwiki ul.plugin_lastfm_opts {
+  display: none;
+}

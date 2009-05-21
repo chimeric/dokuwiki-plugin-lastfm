@@ -4,42 +4,50 @@
  * @author Michael Klier <chi@chimeric.de>
  */
 
-/**
- * performs the ajax call
- *
- * @author Michael Klier <chi@chimeric.de>
- */ 
-function lastfm_ajax(obj){
+function lastfm_ajax(chart, opts) {
     if(!document.getElementById) return;
-    if(!obj) return;
+    if(!chart) return;
+    if(!opts) return;
 
-    // We use SACK to do the AJAX requests
     var ajax = new sack(DOKU_BASE+'lib/exe/ajax.php');
     ajax.AjaxFailedAlert = '';
     ajax.encodeURIString = false;
 
-    ajax.setVar('call', 'lastfm_chart');
-    ajax.setVar('user', plugin_lastfm_user);
-    ajax.setVar('chart', obj.id);
-    ajax.setVar('limit', plugin_lastfm_limit);
-    ajax.setVar('dformat', plugin_lastfm_dformat);
-    ajax.setVar('utc_offset', plugin_lastfm_utc_offset);
-    ajax.setVar('cols', plugin_lastfm_cols);
-    ajax.setVar('imgonly', plugin_lastfm_imgonly);
+    ajax.setVar('call', 'plugin_lastfm');
+    ajax.setVar('plugin_lastfm_chart', chart.id);
+
+    for(var i = 0; i < opts.length; i++) {
+        ajax.setVar(opts[i].firstChild.className, opts[i].firstChild.innerHTML);
+    }
 
     // show loader
-    lastfm_loader(obj);
+    lastfm_loader(chart);
  
     // define callback
     ajax.onCompletion = function(){
         var data = this.response;
         if(data === ''){ return; }
-        obj.style.visibility = 'hidden';
-        obj.innerHTML = data;
-        obj.style.visibility = 'visible';
+        chart.style.visibility = 'hidden';
+        chart.innerHTML = data;
+        chart.style.visibility = 'visible';
     };
 
     ajax.runAJAX();
+}
+
+/**
+ * Calls the ajax function for each requested chart
+ *
+ * @author Michael Klier <chi@chimeric.de>
+ */ 
+function lastfm_get_charts(charts, opts){
+    if(!document.getElementById) return;
+    if(!charts) return;
+    if(!opts) return;
+
+    for(var i = 0; i < charts.length; i++) {
+        lastfm_ajax(charts[i], opts);
+    }
 }
 
 /**
@@ -54,10 +62,13 @@ function lastfm_loader(obj) {
 
 // add the init event
 addInitEvent(function() {
-    var obj = $('plugin_lastfm');
-    if(!obj) return;
-    var charts = getElementsByClass('plugin_lastfm_chart',obj,'div');
-    for(var i=0;i<charts.length;i++) {
-        lastfm_ajax(charts[i]);
+    var objs = getElementsByClass('plugin_lastfm', document, 'div');
+    if(!objs) return;
+    for(var i = 0; i < objs.length; i++) {
+        var opts   = getElementsByClass('plugin_lastfm_opt', objs[i], 'li');
+        var charts = getElementsByClass('plugin_lastfm_chart', objs[i], 'div');
+        lastfm_get_charts(charts, opts);
     }
 });
+
+// vim:ts=4:sw=4:et:enc=utf-8:

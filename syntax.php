@@ -52,7 +52,7 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             'author' => 'Michael Klier (chi)',
             'email'  => 'chi@chimeric.de',
             'date'   => @file_get_contents(DOKU_PLUGIN.'lastfm/VERSION'),
-            'name'   => 'LastFm',
+            'name'   => 'LastFM Plugin (syntax component)',
             'desc'   => 'Displays lastfm statistics for a given user',
             'url'    => 'http://dokuwiki.org/plugin:lastfm'
         );
@@ -124,22 +124,21 @@ class syntax_plugin_lastfm extends DokuWiki_Syntax_Plugin {
             // disable caching
             $renderer->info['cache'] = false;
 
-            $renderer->doc .= '<div id="plugin_lastfm">' . DW_LF;
+            $renderer->doc .= '<div class="plugin_lastfm">' . DW_LF;
+
+            $renderer->doc .= '  <ul class="plugin_lastfm_opts">' . DOKU_LF;
+            $renderer->doc .= '     <li class="plugin_lastfm_opt"><span class="plugin_lastfm_user">' . $data['user'] . '</span></li>' . DOKU_LF;
+            $renderer->doc .= '     <li class="plugin_lastfm_opt"><span class="plugin_lastfm_limit">' . $data['limit'] . '</span></li>' . DOKU_LF;
+            $renderer->doc .= '     <li class="plugin_lastfm_opt"><span class="plugin_lastfm_cols">' . $data['cols'] . '</span></li>' . DOKU_LF;
+            $renderer->doc .= '     <li class="plugin_lastfm_opt"><span class="plugin_lastfm_imgonly">' . $data['imgonly'] . '</span></li>' . DOKU_LF;
+            $renderer->doc .= '  </ul>'. DOKU_LF;
+
             foreach($data['charts'] as $chart) {
                 $renderer->doc .= '  <span class="plugin_lastfm_charttype">last.fm ' . $this->getLang($chart) . '</span>' . DW_LF;
                 $renderer->doc .= '  <div class="plugin_lastfm_chart" id="plugin_lastfm_' . $chart . '"></div>' . DW_LF;
             }
-            $renderer->doc .= '</div>' . DW_LF;
 
-            // print javascript
-            $renderer->doc .= '<script type="text/javascript" language="javascript">' . DW_LF;
-            $renderer->doc .= 'var plugin_lastfm_user = "' . $data['user'] . '";' . DW_LF;
-            $renderer->doc .= 'var plugin_lastfm_limit = "' . $data['limit'] . '";' . DW_LF;
-            $renderer->doc .= 'var plugin_lastfm_utc_offset = "' . $this->getConf('utc_offset') . '";' . DW_LF;
-            $renderer->doc .= 'var plugin_lastfm_dformat = "' . $this->getConf('dformat') . '";' . DW_LF;
-            $renderer->doc .= 'var plugin_lastfm_cols = "'. $data['cols'] . '";' . DW_LF;
-            $renderer->doc .= 'var plugin_lastfm_imgonly = "' . $data['imgonly'] . '";' . DW_LF;
-            $renderer->doc .= '</script>' . DW_LF;
+            $renderer->doc .= '</div>' . DW_LF;
 
             return true;
         }
