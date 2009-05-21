@@ -14,9 +14,18 @@ function lastfm_ajax(obj){
     if(!obj) return;
 
     // We use SACK to do the AJAX requests
-    var ajax = new sack(DOKU_BASE+'lib/plugins/lastfm/ajax.php');
-    ajax_qsearch.sack.AjaxFailedAlert = '';
-    ajax_qsearch.sack.encodeURIString = false;
+    var ajax = new sack(DOKU_BASE+'lib/exe/ajax.php');
+    ajax.AjaxFailedAlert = '';
+    ajax.encodeURIString = false;
+
+    ajax.setVar('call', 'lastfm_chart');
+    ajax.setVar('user', plugin_lastfm_user);
+    ajax.setVar('chart', obj.id);
+    ajax.setVar('limit', plugin_lastfm_limit);
+    ajax.setVar('dformat', plugin_lastfm_dformat);
+    ajax.setVar('utc_offset', plugin_lastfm_utc_offset);
+    ajax.setVar('cols', plugin_lastfm_cols);
+    ajax.setVar('imgonly', plugin_lastfm_imgonly);
 
     // show loader
     lastfm_loader(obj);
@@ -30,7 +39,7 @@ function lastfm_ajax(obj){
         obj.style.visibility = 'visible';
     };
 
-    ajax.runAJAX('user='+plugin_lastfm_user+'&chart='+obj.id+'&limit='+plugin_lastfm_limit+'&dformat='+plugin_lastfm_dformat+'&utc_offset='+plugin_lastfm_utc_offset+'&cols='+plugin_lastfm_cols+'&imgonly='+plugin_lastfm_imgonly);
+    ajax.runAJAX();
 }
 
 /**
