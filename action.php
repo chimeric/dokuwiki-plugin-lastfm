@@ -26,7 +26,7 @@ class action_plugin_lastfm extends DokuWiki_Action_Plugin{
                 );
     }
 
-    function register(&$contr) {
+    function register(Doku_Event_Handler $contr) {
         $contr->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this, 'handle_ajax_call', array());
     }
 
